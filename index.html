@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>自动驾驶车型推荐</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .form-group { margin: 15px 0; }
+        label { display: block; margin: 5px 0; }
+        #result { 
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>🚗 自动驾驶车型推荐系统</h2>
+    
+    <div class="form-group">
+        <label>年龄:</label>
+        <input type="number" id="age" min="18" max="100">
+    </div>
+
+    <div class="form-group">
+        <label>年收入（人民币）:</label>
+        <select id="income">
+            <option value="low">30万以下</option>
+            <option value="mid">30-50万</option>
+            <option value="high">50万以上</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>性别:</label>
+        <div>
+            <input type="radio" name="gender" value="male" checked> 男
+            <input type="radio" name="gender" value="female"> 女
+            <input type="radio" name="gender" value="other"> 其他
+        </div>
+    </div>
+
+    <button onclick="recommend()">获取推荐</button>
+
+    <div id="result"></div>
+
+    <script>
+        function recommend() {
+            // 获取输入值
+            const age = parseInt(document.getElementById('age').value);
+            const income = document.getElementById('income').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+
+            // 推荐逻辑
+            let recommendation = "";
+            if (income === 'high') {
+                recommendation = "🔝 高端推荐：特斯拉 Model S 全自动驾驶版（FSD系统，支持自动导航/变道）";
+            } else if (age > 50 && income === 'mid') {
+                recommendation = "🛡️ 安全首选：蔚来ET7（配备超感系统Aquila，激光雷达+4D成像雷达）";
+            } else if (age < 35) {
+                recommendation = "🚀 科技先锋：小鹏P7（XPILOT 4.0，支持城市NGP自动辅助驾驶）";
+            } else {
+                recommendation = "💰 性价比之选：比亚迪汉EV（DiPilot智能驾驶辅助系统）";
+            }
+
+            // 显示结果
+            document.getElementById('result').innerHTML = `
+                <h3>为您推荐：</h3>
+                <p>${recommendation}</p>
+                <small>推荐依据：${age}岁 | ${income}收入 | ${gender}</small>
+            `;
+        }
+    </script>
+</body>
+</html>
